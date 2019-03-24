@@ -1,10 +1,10 @@
 module.exports = {
-  user: process.env.NODE_ORACLEDB_USER || "sysdba",
+  user: process.env.NODE_ORACLEDB_USER || "SYSTEM",
 
   // Instead of hard coding the password, consider prompting for it,
   // passing it in an environment variable via process.env, or using
   // External Authentication.
-  password: process.env.NODE_ORACLEDB_PASSWORD || 'welcome1',
+  password: process.env.NODE_ORACLEDB_PASSWORD || 'welcome',
 
   // For information on connection strings see:
   // https://oracle.github.io/node-oracledb/doc/api.html#connectionstrings
