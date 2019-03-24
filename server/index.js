@@ -25,7 +25,7 @@ app.get("/api", (req, res) => {
     oracledb.getConnection({
         user: dbConfig.user,
         password: dbConfig.password,
-        connectString: dbConfig.connectString
+        connectString: '' //dbConfig.connectString
       }).then(async conn => {
       console.log(conn)
       const currentYearContractSumQuery = 'select contractSubType, count(contractSubType) from reports_vendor group by contractSubType';
