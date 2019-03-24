@@ -14,9 +14,46 @@ oracledb.outFormat = oracledb.OBJECT;
 const PORT = process.env.PORT || 3008;
 const app = express();
 
+const NODE_ENV = process.env.NODE_ENV;
 
+if(NODE_ENV === 'production'){
+  app.use(express.static("../client"));
+  
+app.get("/*", (req, res) => {
+  const app = ReactDOMServer.renderToString( < App / > );
 
-app.use(express.static("./build"));
+  const indexFile = path.resolve("../client/index.html");
+  fs.readFile(indexFile, "utf8", (err, data) => {
+    if (err) {
+      console.error("Something went wrong:", err);
+      return res.status(500).send("Oops, better luck next time!");
+    }
+
+    return res.send(
+      data.replace('<div id="root"></div>', `<div id="root">${app}</div>`)
+    );
+  });
+});
+}else{
+  app.use(express.static("./build"));
+  
+app.get("/*", (req, res) => {
+  const app = ReactDOMServer.renderToString( < App / > );
+
+  const indexFile = path.resolve("./build/index.html");
+  fs.readFile(indexFile, "utf8", (err, data) => {
+    if (err) {
+      console.error("Something went wrong:", err);
+      return res.status(500).send("Oops, better luck next time!");
+    }
+
+    return res.send(
+      data.replace('<div id="root"></div>', `<div id="root">${app}</div>`)
+    );
+  });
+});
+}
+
 
 app.get("/api", (req, res) => {
 try{
@@ -63,7 +100,7 @@ try{
 app.get("/*", (req, res) => {
   const app = ReactDOMServer.renderToString( < App / > );
 
-  const indexFile = path.resolve("./build/index.html");
+  const indexFile = path.resolve("../client/index.html");
   fs.readFile(indexFile, "utf8", (err, data) => {
     if (err) {
       console.error("Something went wrong:", err);
