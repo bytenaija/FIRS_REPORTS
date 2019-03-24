@@ -17,12 +17,12 @@ const app = express();
 const NODE_ENV = process.env.NODE_ENV;
 
 if(NODE_ENV === 'production'){
-  app.use(express.static("../client"));
+  app.use(express.static("./client"));
   
 app.get("/*", (req, res) => {
   const app = ReactDOMServer.renderToString( < App / > );
 
-  const indexFile = path.resolve("../client/index.html");
+  const indexFile = path.resolve("./client/index.html");
   fs.readFile(indexFile, "utf8", (err, data) => {
     if (err) {
       console.error("Something went wrong:", err);
