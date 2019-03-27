@@ -28,24 +28,24 @@ app.get("/api", (req, res) => {
         connectString: dbConfig.connectString
       }).then(async conn => {
       console.log(conn)
-      const currentYearContractSumQuery = 'select contractSubType, count(contractSubType) from reports_vendor group by contractSubType';
-      const currentYearSpendAreasQuery = 'select contractSubType, paymentType, count(contractSubType) from reports_vendor group by contractSubType group by paymentType';
-      const contractAwardedForYearsQuery = 'select contractSubType, trunc(requestDate, "Year") from reports_vendor group by contractSubType group by trunc(requestDate, "Year")'
+      const currentYearContractSumQuery = 'select contractSubType, count(contractSubType) from REVENUE_SOAINFRA.reports_vendor group by contractSubType';
+      const currentYearSpendAreasQuery = 'select contractSubType, paymentType, count(contractSubType) from REVENUE_SOAINFRA.reports_vendor group by contractSubType group by paymentType';
+      const contractAwardedForYearsQuery = 'select contractSubType, trunc(requestDate, "Year") from REVENUE_SOAINFRA.reports_vendor group by contractSubType group by trunc(requestDate, "Year")'
   
-      const currentYearContractSum = await conn.execute(currentYearContractSumQuery),
-        currentYearSpendAreas = await conn.execute(currentYearSpendAreasQuery),
-        liabilitiesInSpendAreas = [],
-        fecAwardedProjectsCurrentLiabilities = [],
-        contractAwardedForYears = await conn.execute(contractAwardedForYearsQuery),
-        yearsContractSumVariousSpend = [];
+      const currentYearContractSum = await conn.execute(currentYearContractSumQuery);
+        // currentYearSpendAreas = await conn.execute(currentYearSpendAreasQuery),
+        // liabilitiesInSpendAreas = [],
+        // fecAwardedProjectsCurrentLiabilities = [],
+        // contractAwardedForYears = await conn.execute(contractAwardedForYearsQuery),
+        // yearsContractSumVariousSpend = [];
   
       res.json({
         currentYearContractSum,
-        currentYearSpendAreas,
-        liabilitiesInSpendAreas,
-        fecAwardedProjectsCurrentLiabilities,
-        contractAwardedForYears,
-        yearsContractSumVariousSpend
+        // currentYearSpendAreas,
+        // liabilitiesInSpendAreas,
+        // fecAwardedProjectsCurrentLiabilities,
+        // contractAwardedForYears,
+        // yearsContractSumVariousSpend
       });
   
   
